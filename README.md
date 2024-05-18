@@ -1,6 +1,6 @@
 # Log-Analyzer
 
-WebLogTracker est un outil de surveillance et d'analyse des journaux d'accès web. Il permet d'extraire, de transformer et de charger les données des journaux d'accès dans une base de données, puis de visualiser des statistiques et des tendances à travers une interface web conviviale.
+Log-Analyzer est un outil de surveillance et d'analyse des journaux d'accès web. Il permet d'extraire, de transformer et de charger les données des journaux d'accès dans une base de données, puis de visualiser des statistiques et des tendances à travers une interface web conviviale.
 
 ## Fonctionnalités
 
