@@ -15,3 +15,27 @@ WebLogTracker est un outil de surveillance et d'analyse des journaux d'accès we
 - MySQL
 - Flask
 - Modules Python : `mysql-connector-python`, `flask`
+
+
+## Organisation des fichiers
+
+- **models.py** : Définition des classes de modèles pour les données de logs.
+- **app.py** : Fichier principal de l'application Flask.
+- **etl.py** : Script d'extraction, de transformation et de chargement des données.
+- **dal.py** : Couche d'accès aux données pour interagir avec la base de données.
+- **templates/** : Dossier contenant les templates HTML.
+- **static/js/** : Dossier contenant les fichiers JavaScript pour les visualisations.
+- **static/css/** : Dossier contenant les fichiers CSS pour le style.
+
+
+
+## Utilisation
+1. Lancer le script d'extraction et de chargement des logs :
+```bash
+python etl.py
+```
+
+2. Démarrer le serveur Flask :
+```bash
+python app.py
+```

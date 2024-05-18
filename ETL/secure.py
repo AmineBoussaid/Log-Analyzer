@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python")
+sys.path.append(r"")
 
 import re
 import datetime
@@ -93,7 +93,7 @@ def load_secure_auth(List) :
 
 if __name__ ==  "__main__":
 
-    secure_file_path = (r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python\Logs\secure_log")
+    secure_file_path = (r"Logs\secure_log")
 
     secure,auth = extract_secure(secure_file_path)
 

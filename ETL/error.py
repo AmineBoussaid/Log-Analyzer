@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python")
+sys.path.append(r"")
 
 from models import ErrorLog
 
@@ -55,7 +55,7 @@ def load_to_database(error_logs,db_connection):
 
 if __name__ == "__main__":
     # Chemin vers le fichier de logs d'erreurs
-    error_log_file_path = (r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python\Logs\error_log")
+    error_log_file_path = (r"Logs\error_log")
     
     # Extraction des données du fichier de logs d'erreurs
     error_logs = extract_from_error_log(error_log_file_path)

@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python")
+sys.path.append(r"")
 
 from models import AccessLog
 
@@ -51,7 +51,7 @@ def load_to_database(access_logs, db_connection):
 
 if __name__ == "__main__":
     # Chemin vers le fichier de logs
-    log_file_path = (r"C:\Users\ADMIN\Desktop\cs\3eme annee\Python\Projet Python\Logs\access_log")
+    log_file_path = (r"Logs\access_log")
 
     # Extraction des données du fichier de logs
     access_logs = extract_from_log_file(log_file_path)
