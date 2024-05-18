@@ -1,0 +1,9 @@
+[Fri May 10 12:37:09.788102 2019] [suexec:notice] [pid 1082] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+[Fri May 10 12:37:09.798548 2019] [auth_digest:notice] [pid 1082] AH01757: generating secret for digest authentication ...
+[Fri May 10 12:37:09.799146 2019] [lbmethod_heartbeat:notice] [pid 1082] AH02282: No slotmem from mod_heartmonitor
+[Fri May 10 12:37:09.802407 2019] [mpm_prefork:notice] [pid 1082] AH00163: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Fri May 10 12:37:09.802440 2019] [core:notice] [pid 1082] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
+[Fri May 10 12:37:18.432200 2019] [autoindex:error] [pid 1086] [client 196.89.171.246:54336] AH01276: Cannot serve directory /var/www/html/: No matching DirectoryIndex (index.html) found, and server-generated directory index forbidden by Options directive
+[Fri May 10 12:37:22.103049 2019] [autoindex:error] [pid 1086] [client 196.89.171.246:54336] AH01276: Cannot serve directory /var/www/html/: No matching DirectoryIndex (index.html) found, and server-generated directory index forbidden by Options directive
+[Fri May 10 12:54:50.264862 2019] [mpm_prefork:notice] [pid 1082] AH00170: caught SIGWINCH, shutting down gracefully
+[Fri May 10 12:54:51.377090 2019] [suexec:notice] [pid 1532] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
