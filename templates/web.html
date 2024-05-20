@@ -6,7 +6,7 @@
     <title>Web Stats</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Access_script.js') }}"></script>
 </head>
 <body>
     <div class="header">
@@ -101,6 +101,21 @@
             <canvas id="osChart" width="500" height="350"></canvas>
         </div>
         
+        <div class="Box">
+            <span>STATIC REQUESTS</span>
+            <canvas id="fileTypeChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>VISITOR HOSTNAMES AND IPS</span>
+            <canvas id="ipStatsChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>HTTP STATUS CODES</span>
+            <canvas id="responseCodeChart" width="500" height="350"></canvas>
+        </div>
+
     </div>
 </body>
 </html>

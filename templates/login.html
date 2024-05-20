@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/Loginstyles.css">
+
     <title>Login</title>
 </head>
 <body>
@@ -10,11 +12,11 @@
     <form method="POST" action="{{ url_for('login') }}">
         <div>
             <label for="email">Email:</label>
-            <input type="text" name="email" required>
+            <input type="text" name="email" id="email" required>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" id="password" required>
         </div>
         <div>
             <button type="submit">Login</button>

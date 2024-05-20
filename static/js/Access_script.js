@@ -164,6 +164,7 @@ function createBrowserChart(data) {
             datasets: [
                 {
                     label: 'Hits',
+                    max : 90000,
                     data: hits,
                     backgroundColor: 'rgb(0, 84, 153)',
                     borderColor: 'rgb(0, 84, 153,1)',
@@ -172,6 +173,7 @@ function createBrowserChart(data) {
                 },
                 {
                     label: 'Visiteurs Uniques',
+                    max : 12000,
                     data: visitors,
                     backgroundColor: 'rgb(202, 93, 4)',
                     borderColor: 'rgb(202, 93, 4,1)',
@@ -294,7 +296,7 @@ function createBarChart(data) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100000,
+                    max: 75000,
                     position: 'left',
                     title: {
                         display: true,
@@ -303,7 +305,7 @@ function createBarChart(data) {
                 },
                 y1: {
                     beginAtZero: true,
-                    max: 15000,
+                    max: 10000,
                     position: 'right',
                     title: {
                         display: true,
@@ -320,20 +322,22 @@ function createBarChart(data) {
 
 
 
-/******************************************************* */
 
-async function fetchStaticFileStats() {
-    const response = await fetch('/api/static-file-stats');
+/******************************************************/
+
+
+async function fetchFileTypeStats() {
+    const response = await fetch('/api/file-type-stats');
     const data = await response.json();
     return data;
 }
 
-function createStaticFileChart(data) {
-    const labels = data.map(item => item.uri);
-    const hits = data.map(item => Math.min(item.hits, 2500));
-    const uniqueVisitors = data.map(item => Math.min(item.unique_visitors, 1000));
+function createFileTypeChart(data) {
+    const ctx = document.getElementById('fileTypeChart').getContext('2d');
+    const labels = data.map(item => item.file_type);
+    const hits = data.map(item => item.hits);
+    const visitors = data.map(item => item.visitors);
 
-    const ctx = document.getElementById('staticFilesChart').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -342,16 +346,16 @@ function createStaticFileChart(data) {
                 {
                     label: 'Hits',
                     data: hits,
-                    backgroundColor: 'rgba(0, 84, 153, 0.6)',
-                    borderColor: 'rgba(0, 84, 153, 1)',
+                    backgroundColor: 'rgb(0, 84, 153)',
+                    borderColor: 'rgb(0, 84, 153,1)',
                     borderWidth: 1,
                     yAxisID: 'y'
                 },
                 {
-                    label: 'Unique Visitors',
-                    data: uniqueVisitors,
-                    backgroundColor: 'rgba(202, 93, 4, 0.6)',
-                    borderColor: 'rgba(202, 93, 4, 1)',
+                    label: 'Visitors',
+                    data: visitors,
+                    backgroundColor: 'rgb(202, 93, 4)',
+                    borderColor: 'rgb(202, 93, 4,1)',
                     borderWidth: 1,
                     yAxisID: 'y1'
                 }
@@ -361,7 +365,7 @@ function createStaticFileChart(data) {
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 2500,
+                    max: 10000,
                     position: 'left',
                     title: {
                         display: true,
@@ -370,11 +374,11 @@ function createStaticFileChart(data) {
                 },
                 y1: {
                     beginAtZero: true,
-                    max: 1000,
+                    max: 5000,
                     position: 'right',
                     title: {
                         display: true,
-                        text: 'Unique Visitors'
+                        text: 'Visitors'
                     },
                     grid: {
                         drawOnChartArea: false
@@ -385,9 +389,142 @@ function createStaticFileChart(data) {
     });
 }
 
+/************************************************** */
+
+async function fetchIpStats() {
+    const response = await fetch('/api/ip_stats');
+    const data = await response.json();
+    return data;
+}
+
+function createIpStatsChart(data) {
+    const ctx = document.getElementById('ipStatsChart').getContext('2d');
+    const labels = data.map(item => item.ip);
+    const hits = data.map(item => item.hits);
+    const visitors = data.map(item => item.visitors);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Hits',
+                    data: hits,
+                    backgroundColor: 'rgb(0, 84, 153)',
+                    borderColor: 'rgb(0, 84, 153,1)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Visitors',
+                    data: visitors,
+                    backgroundColor: 'rgb(202, 93, 4)',
+                    borderColor: 'rgb(202, 93, 4,1)',
+                    borderWidth: 1,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5000,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Hits'
+                    }
+                },
+                y1: {
+                    beginAtZero: true,
+                    max: 2,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Visitors'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+/***************************************************** */
+
+async function fetchResponseCodeStats() {
+    const response = await fetch('/api/response-code-stats');
+    const data = await response.json();
+    return data;
+}
+
+function createResponseCodeChart(data) {
+    const ctx = document.getElementById('responseCodeChart').getContext('2d');
+    const labels = data.map(item => item.code_category);
+    const visitors = data.map(item => item.visitors);
+    const hits = data.map(item => item.hits);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Visitors',
+                    data: hits,
+                    backgroundColor: 'rgb(0, 84, 153)',
+                    borderColor: 'rgb(0, 84, 153,1)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Hits',
+                    data: visitors,
+                    backgroundColor: 'rgb(202, 93, 4)',
+                    borderColor: 'rgb(202, 93, 4,1)',
+                    borderWidth: 1,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 200000,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Hits'
+                    }
+                },
+                y1: {
+                    beginAtZero: true,
+                    max: 50000,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Visitors'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+/*********************************************************/
+
+
 async function main() {
 
-    
 
     const stats = await fetchOverviewStats();
     displayOverviewStats(stats);
@@ -406,6 +543,15 @@ async function main() {
 
     const systemdata = await fetchOperatingSystemStats();
     createBarChart(systemdata);
+
+    const fileTypeStats = await fetchFileTypeStats();
+    createFileTypeChart(fileTypeStats);
+
+    const IpStats = await fetchIpStats();
+    createIpStatsChart(IpStats);
+
+    const responseCodeStats = await fetchResponseCodeStats();
+    createResponseCodeChart(responseCodeStats);
    
 }
 

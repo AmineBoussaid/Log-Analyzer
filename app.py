@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, jsonify, request, session, url_for
+from dal import UserDao
 from service import AccessService, UserService
 
 app = Flask(__name__)
@@ -21,9 +22,11 @@ def login():
             session['user'] = user.email
             return redirect(url_for('web'))
         else:
-            return render_template('login.html', error='Invalid credentials')
-
+            error = 'Invalid credentials. Please try again.'
+            return render_template('login.html', error=error)
+        
     return render_template('login.html')
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -32,7 +35,10 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         UserService.register(email, password)
-        return redirect('/login')
+
+        UserService.users=UserDao.getAllUsers()
+
+        return redirect(url_for('login'))
 
     return render_template('register.html')
 
@@ -55,6 +61,7 @@ def security():
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
+
 
 @app.route('/api/overview-stats')
 def api_overview_stats():
@@ -86,6 +93,25 @@ def api_not_found_urls():
 def api_operating_systems():
     stats = AccessService.get_operating_systems()
     return jsonify(stats)
+
+
+@app.route('/api/file-type-stats')
+def api_file_type_stats():
+    stats = AccessService.getFileTypeStats()
+    return jsonify(stats)
+
+
+@app.route('/api/ip_stats')
+def api_ip_stats():
+    stats = AccessService.get_ip_stats()
+    return jsonify(stats)
+
+
+@app.route('/api/response-code-stats')
+def api_response_code_stats():
+    stats = AccessService.get_response_code_stats()
+    return jsonify(stats)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

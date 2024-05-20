@@ -1,4 +1,3 @@
-from ast import Dict, List
 import mysql.connector
 from mysql.connector import Error
 
@@ -38,7 +37,10 @@ class UserDao:
             cursor.execute("SELECT * FROM user")
             user_data = cursor.fetchall()
 
+            conn.commit()
+            cursor.close()
             conn.close()
+
 
             users = [User(*data) for data in user_data] if user_data else []
             return users
@@ -56,6 +58,7 @@ class UserDao:
             (user.email, user.password))
 
             conn.commit()
+            cursor.close()
             conn.close()
 
             return "Registration successful."
@@ -252,7 +255,116 @@ class AccessLogDao:
             return None
         
 
+
+    @staticmethod
+    def getFileTypeStats():
+        try:
+            conn = DataBase.getConnection()
+            cursor = conn.cursor()
+
+            query = """
+            SELECT
+                file_type,
+                COUNT(DISTINCT ip) AS visitors,
+                COUNT(*) AS hits
+            FROM (
+                SELECT
+                    CASE
+                        WHEN uri LIKE '%.jpg' THEN 'jpg'
+                        WHEN uri LIKE '%.jpeg' THEN 'jpeg'
+                        WHEN uri LIKE '%.png' THEN 'png'
+                        WHEN uri LIKE '%.gif' THEN 'gif'
+                        WHEN uri LIKE '%.css' THEN 'css'
+                        WHEN uri LIKE '%.js' THEN 'js'
+                        WHEN uri LIKE '%.ico' THEN 'ico'
+                        WHEN uri LIKE '%.svg' THEN 'svg'
+                        WHEN uri LIKE '%.woff' THEN 'woff'
+                        WHEN uri LIKE '%.woff2' THEN 'woff2'
+                        WHEN uri LIKE '%.ttf' THEN 'ttf'
+                        WHEN uri LIKE '%.php' THEN 'php'
+                        WHEN uri LIKE '%.html' THEN 'html'
+                        WHEN uri LIKE '%.txt' THEN 'txt'
+                        ELSE 'other'
+                    END AS file_type,
+                    ip
+                FROM access_log
+            ) AS subquery
+            GROUP BY file_type
+            ORDER BY hits DESC;
+            """
+            cursor.execute(query)
+            file_type_stats = cursor.fetchall()
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+            return file_type_stats
+        except Error as e:
+            print(f"Error: {e}")
+            return None
         
+
+
+    @staticmethod
+    def getIpStats():
+        try:
+            conn = DataBase.getConnection()
+            cursor = conn.cursor()
+
+            query = """
+            SELECT 
+                ip,
+                COUNT(DISTINCT ip) AS visitors,
+                COUNT(*) AS hits
+            FROM 
+                access_log
+            GROUP BY 
+                ip
+            HAVING 
+                hits > 1800
+            ORDER BY 
+                hits DESC;
+            """
+            cursor.execute(query)
+            ip_stats = cursor.fetchall()
+            conn.commit()
+            cursor.close()
+            conn.close()
+
+            return ip_stats
+        except Error as e:
+            print(f"Error: {e}")
+            return None  
+
+    
+    @staticmethod
+    def getResponseCodeStats():
+        try:
+            conn = DataBase.getConnection()
+            cursor = conn.cursor()
+
+            query = """
+            SELECT
+                CASE
+                    WHEN response_code BETWEEN 100 AND 199 THEN '1xx (Informations)'
+                    WHEN response_code BETWEEN 200 AND 299 THEN '2xx (Success)'
+                    WHEN response_code BETWEEN 300 AND 399 THEN '3xx (Redirection)'
+                    WHEN response_code BETWEEN 400 AND 499 THEN '4xx (Client Errors)'
+                    ELSE 'Other'
+                END AS code_category,
+                COUNT(DISTINCT ip) AS visitors,
+                COUNT(*) AS hits
+            FROM access_log
+            GROUP BY code_category;
+            """
+            cursor.execute(query)
+            response_code_stats = cursor.fetchall()
+            conn.close()
+
+            return response_code_stats
+        except Error as e:
+            print(f"Error: {e}")
+            return None
 
 
             

@@ -81,3 +81,31 @@ class AccessService:
         else:
             return {}
         
+
+
+    @staticmethod
+    def getFileTypeStats():
+        stats = AccessLogDao.getFileTypeStats()
+        return [
+            {'file_type': stat[0], 'visitors': stat[1], 'hits': stat[2]}
+            for stat in stats
+        ]
+    
+
+
+    @staticmethod
+    def get_ip_stats():
+        stats = AccessLogDao.getIpStats()
+        return [
+            {'ip': stat[0], 'visitors': stat[1], 'hits': stat[2]}
+            for stat in stats
+        ]
+    
+
+    @staticmethod
+    def get_response_code_stats():
+        stats = AccessLogDao.getResponseCodeStats()
+        return [
+            {'code_category': stat[0], 'visitors': stat[1], 'hits': stat[2]}
+            for stat in stats
+        ]
