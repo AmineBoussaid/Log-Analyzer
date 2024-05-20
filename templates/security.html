@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>Security Stats</title>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <img src="{{ url_for('static', filename='images/1.png') }}"></img>
+            <div class="info">
+                <span>{{ user }}</span>
+            </div>
+        </div>
+
+        <div class="center">
+            <a href="{{ url_for('web') }}" class="button-link">WEB</a>
+            <a href="{{ url_for('security') }}" class="button-link" style="border-bottom: 2px solid chocolate;">SECURITY</a>
+            <a href="{{ url_for('logout') }}" class="button-link">LOGOUT</a>
+        </div>
+
+        <div class="right">
+            <img src="{{ url_for('static', filename='images/1.png') }}"></img>
+        </div>
+    </div>
+
+    <h1>Security Information</h1>
+    <!-- Ajoutez ici le contenu de la page de sécurité -->
+</body>
+</html>
