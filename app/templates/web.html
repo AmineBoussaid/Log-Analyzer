@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Stats</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../static/js/Access_script.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <img src="../static/images/1.png"></img>
+            <div class="info">
+                <span>{{ user }}</span>
+            </div>
+        </div>
+
+        <div class="center">
+            <a href="#" class="button-link" style="border-bottom: 2px solid chocolate;">WEB</a>
+            <a href="{{ url_for('security') }}" class="button-link">SECURITY</a>
+            <a href="{{ url_for('logout') }}" class="button-link">LOGOUT</a>
+        </div>
+
+        <div class="right">
+            <img src="../static/images/1.png"></img>
+        </div>
+    </div>
+
+    <div class="Analyses">
+
+        <div class="container">
+            <h1>Overall Analyzed Requests</h1>
+            <div class="stats-container">
+                
+                <div class="stats-box">
+                    <h3>Total Requests</h3>
+                    <p id="totalRequests">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Valid Requests</h3>
+                    <p id="validRequests">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Failed Requests</h3>
+                    <p id="failedRequests">0</p>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>Unique Visitors</h3>
+                    <p id="uniqueVisitors">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Referrers</h3>
+                    <p id="referrers">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Not Found</h3>
+                    <p id="notFound">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Requested Files</h3>
+                    <p id="requestedFiles">0</p>
+                </div>
+
+                <div class="stats-box">
+                    <h3>Tx. Amount</h3>
+                    <p id="txAmount">0 MiB</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Box">
+            <span>UNIQUE VISITORS PER MOUNT</span>
+            <canvas id="visitorsChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>REQUESTED FILES (URLS)</span>
+            <canvas id="uriChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>BROWSERS</span>
+            <canvas id="browserChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>NOT FOUND URLS (404)</span>
+            <canvas id="notFoundChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>OPERATING SYSTEMS</span>
+            <canvas id="osChart" width="500" height="350"></canvas>
+        </div>
+        
+        <div class="Box">
+            <span>STATIC REQUESTS</span>
+            <canvas id="fileTypeChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>VISITOR HOSTNAMES AND IPS</span>
+            <canvas id="ipStatsChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>HTTP STATUS CODES</span>
+            <canvas id="responseCodeChart" width="500" height="350"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>Geolocation Data</span>
+            <canvas id="geoChart" width="500" height="350"></canvas>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../static/js/Secure_script.js"></script>
+
+    <title>Security Logs Analysis</title>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <img src="{{ url_for('static', filename='images/1.png') }}" alt="logo">
+            <div class="info">
+                <span>{{ user }}</span>
+            </div>
+        </div>
+        <div class="center">
+            <a href="{{ url_for('web') }}" class="button-link">WEB</a>
+            <a class="button-link" style="border-bottom: 2px solid chocolate;">SECURITY</a>
+            <a href="{{ url_for('logout') }}" class="button-link">LOGOUT</a>
+        </div>
+        <div class="right">
+            <img src="{{ url_for('static', filename='images/1.png') }}" alt="logo">
+        </div>
+    </div>
+
+
+
+    <h1 style="color: black;">Security Logs Analysis</h1>
+    
+    <div class="Analyses">
+        <div class="Box">
+            <span>Authentication Failures by IP</span>
+            <canvas id="authFailuresByIpChart" width="550" height="400"></canvas>
+        </div>
+
+        <div class="Box">
+            <span>Auth Failures by Period</span>
+            <canvas id="authFailuresByPeriodChart" width="550" height="400"></canvas>
+        </div>
+
+    </div>
+</body>
+</html>
