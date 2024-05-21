@@ -367,4 +367,59 @@ class AccessLogDao:
             return None
 
 
+
+
+class SecureAuthDao:
+    @staticmethod
+    def getAuthfailuresIp():
+        try:
+            conn = DataBase.getConnection()
+            cursor = conn.cursor()
             
+            query = """
+            SELECT rhost AS ip, COUNT(*) AS auth_failures
+            FROM secure_auth
+            WHERE meg LIKE '%authentication failure%'
+            GROUP BY rhost
+            HAVING
+                auth_failures > 400
+            ORDER BY auth_failures DESC;
+            """
+            
+            cursor.execute(query)
+            
+            result = cursor.fetchall()
+            conn.close()
+            return result
+        except Error as e:
+            print(f"Error: {e}")
+            return None
+        
+
+        
+    @staticmethod
+    def get_auth_failures_by_period():
+        try:
+            conn = DataBase.getConnection()
+            cursor = conn.cursor()
+            
+            query = """
+            SELECT DATE(date) AS day, COUNT(*) AS auth_failures
+            FROM secure_auth
+            WHERE meg LIKE '%authentication failure%'
+            GROUP BY day
+            ORDER BY day;
+            """
+            
+            cursor.execute(query)
+            result = cursor.fetchall()
+            conn.close()
+            return result
+        except Error as e:
+            print(f"Error: {e}")
+            return None
+
+        
+        
+
+    

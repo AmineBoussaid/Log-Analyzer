@@ -1,9 +1,9 @@
 from flask import Flask, redirect, render_template, jsonify, request, session, url_for
 from dal import UserDao
-from service import AccessService, UserService
+from service import AccessService, SecureAuthService, UserService
 
 app = Flask(__name__)
-app.secret_key = 'admin'  # Nécessaire pour les sessions
+app.secret_key = 'admin'  
 
 @app.route('/')
 def hello():
@@ -112,6 +112,20 @@ def api_response_code_stats():
     stats = AccessService.get_response_code_stats()
     return jsonify(stats)
 
+
+################################################################ 
+
+
+@app.route('/api/auth-failures-by-ip')
+def api_auth_failures_by_ip():
+    stats = SecureAuthService.get_auth_failures_by_ip()
+    return jsonify(stats)
+
+@app.route('/api/auth-failures-by-period')
+def get_auth_failures_by_period():
+    stats = SecureAuthService.get_auth_failures_by_period()
+    print(stats)
+    return jsonify(stats)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,5 +1,5 @@
 from typing import List
-from dal import AccessLogDao, UserDao
+from dal import AccessLogDao, SecureAuthDao, UserDao
 from models import User
 
 
@@ -109,3 +109,29 @@ class AccessService:
             {'code_category': stat[0], 'visitors': stat[1], 'hits': stat[2]}
             for stat in stats
         ]
+
+
+
+class SecureAuthService:
+    @staticmethod
+    def get_auth_failures_by_ip():
+        stats = SecureAuthDao.getAuthfailuresIp()
+        return [
+            {'ip': stat[0], 'auth_failures': stat[1]}
+            for stat in stats
+        ]
+    
+
+
+    @staticmethod
+    def get_auth_failures_by_period():
+        stats = SecureAuthDao.get_auth_failures_by_period()
+        return [
+            {'day': stat[0], 'auth_failures': stat[1]}
+            for stat in stats
+        ]
+
+
+    
+
+
